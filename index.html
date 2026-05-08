@@ -1,1 +1,812 @@
-<html></html>
+<!DOCTYPE html>
+<html lang="ru" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Политика конфиденциальности — ПРОсрок / PROexpiry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* TOKENS */
+:root {
+  --sans: 'DM Sans', sans-serif;
+  --serif: 'Literata', Georgia, serif;
+  --bg:         #f7f5f0;
+  --surface:    #ffffff;
+  --border:     #e4e0d8;
+  --text:       #1a1814;
+  --muted:      #7a7468;
+  --accent:     #2d6a4f;
+  --accent-soft:#e8f2ec;
+  --accent-text:#1e4d38;
+  --tag-bg:     #f0ede6;
+  --shadow:     0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.10);
+  --radius:     14px;
+  --radius-sm:  8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#131210;--surface:#1d1b18;--border:#2e2b26;--text:#ede9e0;
+    --muted:#8a8278;--accent:#52b788;--accent-soft:#1a2e24;--accent-text:#74c9a0;
+    --tag-bg:#252320;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
+    --shadow-lg:0 8px 32px rgba(0,0,0,.4);
+  }
+}
+[data-theme="dark"] {
+  --bg:#131210;--surface:#1d1b18;--border:#2e2b26;--text:#ede9e0;
+  --muted:#8a8278;--accent:#52b788;--accent-soft:#1a2e24;--accent-text:#74c9a0;
+  --tag-bg:#252320;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.4);
+}
+[data-theme="light"] {
+  --bg:#f7f5f0;--surface:#ffffff;--border:#e4e0d8;--text:#1a1814;
+  --muted:#7a7468;--accent:#2d6a4f;--accent-soft:#e8f2ec;--accent-text:#1e4d38;
+  --tag-bg:#f0ede6;--shadow:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.10);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--text);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  transition:background .25s,color .25s;min-height:100vh;
+}
+
+/* HEADER */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.header-inner{
+  max-width:800px;margin:0 auto;padding:0 24px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.app-name{
+  font-family:var(--serif);font-weight:500;font-size:17px;
+  color:var(--text);white-space:nowrap;letter-spacing:-.01em;flex-shrink:0;
+}
+.app-name span{color:var(--accent);}
+.controls{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
+.lang-switch{
+  display:flex;background:var(--tag-bg);border:1px solid var(--border);
+  border-radius:999px;padding:3px;gap:2px;
+}
+.lang-btn{
+  background:none;border:none;cursor:pointer;font-family:var(--sans);
+  font-size:13px;font-weight:500;padding:4px 13px;border-radius:999px;
+  color:var(--muted);transition:all .2s;letter-spacing:.02em;line-height:1;
+}
+.lang-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+
+.theme-btn{
+  background:var(--tag-bg);border:1px solid var(--border);border-radius:999px;
+  width:36px;height:36px;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;color:var(--muted);transition:all .2s;flex-shrink:0;
+}
+.theme-btn:hover{color:var(--text);border-color:var(--accent);}
+.theme-btn svg{width:16px;height:16px;}
+.icon-sun,.icon-moon{display:none;}
+[data-theme="light"] .icon-sun,[data-theme="auto"] .icon-sun{display:block;}
+[data-theme="dark"] .icon-moon{display:block;}
+@media(prefers-color-scheme:dark){
+  [data-theme="auto"] .icon-sun{display:none;}
+  [data-theme="auto"] .icon-moon{display:block;}
+}
+
+/* LAYOUT */
+main{max-width:800px;margin:0 auto;padding:48px 24px 96px;}
+
+/* HERO */
+.hero{margin-bottom:48px;padding-bottom:40px;border-bottom:1px solid var(--border);}
+.hero-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;
+}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(26px,5vw,38px);font-weight:400;
+  line-height:1.2;letter-spacing:-.02em;color:var(--text);margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.meta-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:10px;margin-top:24px;
+}
+.meta-item{
+  background:var(--tag-bg);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 14px;
+}
+.meta-label{
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:3px;
+}
+.meta-value{font-size:14px;color:var(--text);font-weight:500;}
+.meta-value a{color:var(--accent);text-decoration:none;}
+.meta-value a:hover{text-decoration:underline;}
+
+/* SECTIONS */
+.policy-section{
+  margin-bottom:32px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  transition:box-shadow .2s;animation:fadeUp .4s ease both;
+}
+.policy-section:hover{box-shadow:var(--shadow-lg);}
+.policy-section:nth-child(1){animation-delay:.05s}
+.policy-section:nth-child(2){animation-delay:.10s}
+.policy-section:nth-child(3){animation-delay:.13s}
+.policy-section:nth-child(4){animation-delay:.16s}
+.policy-section:nth-child(5){animation-delay:.19s}
+.policy-section:nth-child(6){animation-delay:.22s}
+.policy-section:nth-child(7){animation-delay:.25s}
+.policy-section:nth-child(8){animation-delay:.28s}
+.policy-section:nth-child(9){animation-delay:.31s}
+.policy-section:nth-child(10){animation-delay:.34s}
+
+.section-header{
+  display:flex;align-items:center;gap:14px;padding:18px 24px;
+  border-bottom:1px solid var(--border);background:var(--tag-bg);
+}
+.section-num{
+  font-family:var(--serif);font-size:13px;font-weight:300;font-style:italic;
+  color:var(--muted);min-width:22px;
+}
+.section-header h2{
+  font-family:var(--serif);font-size:18px;font-weight:500;
+  letter-spacing:-.01em;color:var(--text);line-height:1.3;
+}
+.section-body{padding:24px;}
+.section-body p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:16px;}
+.section-body p:last-child{margin-bottom:0;}
+.section-body h3{
+  font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--accent-text);margin:24px 0 10px;
+}
+.section-body h3:first-child{margin-top:0;}
+.section-body ul{list-style:none;margin-bottom:16px;}
+.section-body ul li{
+  font-size:15px;line-height:1.7;padding:6px 0 6px 22px;position:relative;
+  color:var(--text);border-bottom:1px solid var(--border);
+}
+.section-body ul li:last-child{border-bottom:none;}
+.section-body ul li::before{
+  content:'';position:absolute;left:0;top:15px;width:6px;height:6px;
+  background:var(--accent);border-radius:50%;opacity:.6;
+}
+.section-body a{color:var(--accent);text-decoration:none;word-break:break-all;}
+.section-body a:hover{text-decoration:underline;}
+strong{font-weight:600;}
+
+/* HIGHLIGHT */
+.highlight-block{
+  background:var(--accent-soft);border:1px solid var(--accent);
+  border-radius:var(--radius-sm);padding:14px 18px;margin:16px 0;
+  font-size:14px;color:var(--accent-text);line-height:1.65;
+}
+
+/* NOT COLLECTED */
+.not-collected{
+  background:var(--tag-bg);border-radius:var(--radius-sm);
+  padding:16px;margin-top:16px;
+}
+.not-collected-label{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.not-collected ul{margin:0;}
+.not-collected ul li{border-color:transparent;font-size:14px;}
+
+/* PERMISSION CARDS */
+.permission-cards{display:grid;gap:12px;}
+.permission-card{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
+.permission-card-head{
+  display:flex;align-items:center;gap:10px;padding:11px 16px;
+  background:var(--tag-bg);border-bottom:1px solid var(--border);
+}
+.permission-icon{font-size:18px;line-height:1;}
+.permission-name{font-weight:600;font-size:14px;color:var(--text);}
+.permission-card-body{padding:14px 16px;}
+.permission-card-body p{font-size:14px;margin-bottom:8px;line-height:1.65;}
+.permission-card-body p:last-child{margin-bottom:0;}
+.pill{
+  display:inline-block;background:var(--accent-soft);color:var(--accent-text);
+  border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;margin-right:4px;
+}
+
+/* SECURITY */
+.security-list{display:grid;gap:10px;}
+.security-item{
+  display:flex;gap:12px;align-items:flex-start;padding:12px 14px;
+  background:var(--tag-bg);border-radius:var(--radius-sm);border:1px solid var(--border);
+}
+.security-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.security-text{font-size:14px;line-height:1.65;}
+.security-text strong{display:block;margin-bottom:2px;}
+
+/* NO TRACKING */
+.no-tracking-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;margin-bottom:16px;
+}
+.no-tracking-item{
+  display:flex;align-items:center;gap:8px;padding:10px 12px;
+  background:var(--accent-soft);border:1px solid var(--accent);
+  border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--accent-text);
+}
+.no-tracking-item::before{content:'✓';font-weight:700;font-size:14px;}
+
+/* CONTACT */
+.contact-block{display:flex;flex-direction:column;gap:10px;}
+.contact-row{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--tag-bg);border:1px solid var(--border);border-radius:var(--radius-sm);
+}
+.contact-label{
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);min-width:96px;
+}
+.contact-value{font-size:15px;color:var(--text);}
+.contact-value a{color:var(--accent);text-decoration:none;}
+.contact-value a:hover{text-decoration:underline;}
+
+/* FOOTER */
+footer{
+  max-width:800px;margin:0 auto;padding:0 24px 48px;
+  text-align:center;font-size:13px;color:var(--muted);line-height:1.6;
+}
+footer a{color:var(--muted);}
+
+/* LANG VISIBILITY */
+[data-lang="en"]{display:none;}
+html[lang="en"] [data-lang="ru"]{display:none;}
+html[lang="en"] [data-lang="en"]{display:block;}
+html[lang="en"] .permission-cards[data-lang="en"]{display:grid;}
+html[lang="en"] .security-list[data-lang="en"]{display:grid;}
+html[lang="en"] .no-tracking-grid[data-lang="en"]{display:grid;}
+html[lang="en"] .contact-block[data-lang="en"]{display:flex;}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  main{padding:28px 16px 72px;}
+  footer{padding:0 16px 40px;}
+  .header-inner{padding:0 16px;}
+  .section-body{padding:18px 16px;}
+  .section-header{padding:14px 16px;}
+  .meta-grid{grid-template-columns:1fr 1fr;}
+  .no-tracking-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:24px;}
+  .app-name{font-size:14px;}
+  .contact-label{min-width:72px;}
+}
+@media(max-width:380px){
+  .meta-grid{grid-template-columns:1fr;}
+  .no-tracking-grid{grid-template-columns:1fr;}
+  .lang-btn{padding:4px 10px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="app-name">ПРОсрок&nbsp;<span>/</span>&nbsp;PROexpiry</span>
+    <div class="controls">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+        <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+      </div>
+      <button class="theme-btn" onclick="cycleTheme()" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div data-lang="ru">
+      <p class="hero-eyebrow">Политика конфиденциальности</p>
+      <h1>ПРОсрок &amp; <em>PROexpiry</em></h1>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Версия</div><div class="meta-value">1.1</div></div>
+        <div class="meta-item"><div class="meta-label">Дата вступления в силу</div><div class="meta-value">7 мая 2026 г.</div></div>
+        <div class="meta-item"><div class="meta-label">Разработчик</div><div class="meta-value">Aleksey Petrov</div></div>
+        <div class="meta-item"><div class="meta-label">Контакт</div><div class="meta-value"><a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></div></div>
+      </div>
+    </div>
+    <div data-lang="en">
+      <p class="hero-eyebrow">Privacy Policy</p>
+      <h1>ПРОсрок &amp; <em>PROexpiry</em></h1>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Version</div><div class="meta-value">1.1</div></div>
+        <div class="meta-item"><div class="meta-label">Effective date</div><div class="meta-value">May 7, 2026</div></div>
+        <div class="meta-item"><div class="meta-label">Developer</div><div class="meta-value">Aleksey Petrov</div></div>
+        <div class="meta-item"><div class="meta-label">Contact</div><div class="meta-value"><a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 data-lang="ru">Введение и общая информация</h2>
+      <h2 data-lang="en">Introduction</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Настоящая Политика конфиденциальности описывает, какие данные собирает, обрабатывает и хранит мобильное приложение «ПРОсрок» / «PROexpiry» для платформы iOS, разработанное Aleksey Petrov (далее — «Разработчик», «мы»), и каким образом обеспечивается их защита.</p>
+        <p>Приложение предназначено для отслеживания сроков годности продуктов и товаров. Пользователь может:</p>
+        <ul>
+          <li>добавлять товары вручную или с помощью сканирования этикетки;</li>
+          <li>рассчитывать сроки годности с помощью встроенного калькулятора и при желании сохранять результаты в общий список товаров;</li>
+          <li>получать локальные уведомления о приближающемся или истёкшем сроке годности.</li>
+        </ul>
+        <div class="highlight-block"><strong>Ключевой принцип:</strong> Приложение не имеет собственного сервера, не использует сторонних SDK, не показывает рекламу и не передаёт ваши данные Разработчику или третьим лицам.</div>
+        <p>Используя Приложение, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны с её положениями, пожалуйста, прекратите использование Приложения.</p>
+      </div>
+      <div data-lang="en">
+        <p>This Privacy Policy describes what data is collected, processed, and stored by the iOS mobile application "PROexpiry" / "ПРОсрок", developed by Aleksey Petrov (the "Developer", "we"), and how that data is protected.</p>
+        <p>The App is designed to help users track the expiration dates of products and goods. Users can:</p>
+        <ul>
+          <li>add items manually or by scanning the packaging label;</li>
+          <li>calculate expiration dates using the built-in calculator and optionally save results to the product list;</li>
+          <li>receive local notifications about approaching or passed expiration dates.</li>
+        </ul>
+        <div class="highlight-block"><strong>Core principle:</strong> The App has no proprietary server, uses no third-party SDKs, displays no advertising, and does not transmit your data to the Developer or any third parties.</div>
+        <p>By using the App, you agree to the terms of this Policy. If you do not agree, please discontinue use of the App.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 data-lang="ru">Какие данные мы собираем</h2>
+      <h2 data-lang="en">What Data We Collect</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Приложение обрабатывает только те данные, которые вы добавляете самостоятельно или которые необходимы для его работы на вашем устройстве.</p>
+        <h3>Данные о товарах</h3>
+        <ul>
+          <li>название товара;</li>
+          <li>дата производства, срок годности, дата открытия упаковки;</li>
+          <li>категория товара;</li>
+          <li>фотография товара (опционально, по вашему выбору).</li>
+        </ul>
+        <h3>Данные калькулятора сроков годности</h3>
+        <p>Приложение содержит встроенный калькулятор для расчёта дат истечения сроков годности.</p>
+        <ul>
+          <li>Расчёты выполняются полностью на вашем устройстве и нигде не сохраняются автоматически.</li>
+          <li>Если вы нажимаете «Сохранить», результат добавляется в список товаров и обрабатывается на тех же условиях.</li>
+          <li>Если вы не сохраняете результат — никакие данные расчёта не сохраняются и не передаются.</li>
+        </ul>
+        <h3>Настройки приложения</h3>
+        <ul>
+          <li>параметры уведомлений (расписание, включение/отключение);</li>
+          <li>настройки безопасности (пароль, биометрия, таймаут блокировки).</li>
+        </ul>
+        <p>Настройки хранятся локально на вашем устройстве.</p>
+        <h3>Пароль приложения</h3>
+        <p>Если вы устанавливаете цифровой пароль (4 или 6 цифр), он хранится исключительно в защищённом системном хранилище <strong>Keychain</strong>. Приложение не передаёт пароль ни на серверы, ни Разработчику, ни третьим лицам.</p>
+        <div class="not-collected">
+          <div class="not-collected-label">Мы НЕ собираем и не передаём</div>
+          <ul>
+            <li>персональные данные (имя, email, телефон, адрес);</li>
+            <li>рекламные идентификаторы устройства;</li>
+            <li>данные о местоположении;</li>
+            <li>аналитику, телеметрию и поведенческую статистику;</li>
+            <li>любые сведения на серверы Разработчика (их нет).</li>
+          </ul>
+        </div>
+      </div>
+      <div data-lang="en">
+        <p>The App processes only data you enter yourself or that is required for its operation on your device.</p>
+        <h3>Product data</h3>
+        <ul>
+          <li>product name;</li>
+          <li>production date, expiration date, opening date;</li>
+          <li>product category;</li>
+          <li>product photograph (optional, at your discretion).</li>
+        </ul>
+        <h3>Expiration date calculator data</h3>
+        <p>The App includes a built-in calculator to compute expiration dates.</p>
+        <ul>
+          <li>All calculations run entirely on your device and are not saved automatically.</li>
+          <li>If you tap "Save", the result is added to your product list and processed under the same terms.</li>
+          <li>If you do not save the result, no calculation data is stored or transmitted.</li>
+        </ul>
+        <h3>App settings</h3>
+        <ul>
+          <li>notification preferences (schedule, on/off);</li>
+          <li>security settings (passcode, biometrics, lock timeout).</li>
+        </ul>
+        <p>Settings are stored locally on your device.</p>
+        <h3>App passcode</h3>
+        <p>If you set a numeric passcode (4 or 6 digits), it is stored exclusively in the secure system storage <strong>Keychain</strong>. The App does not transmit your passcode to any server, the Developer, or any third party.</p>
+        <div class="not-collected">
+          <div class="not-collected-label">We do NOT collect or transmit</div>
+          <ul>
+            <li>personal data (name, email, phone number, address);</li>
+            <li>advertising device identifiers;</li>
+            <li>location data;</li>
+            <li>analytics, telemetry, or behavioral statistics;</li>
+            <li>any information to the Developer's servers (none exist).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 data-lang="ru">Как мы используем ваши данные</h2>
+      <h2 data-lang="en">How We Use Your Data</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Все данные используются исключительно для следующих целей:</p>
+        <ul>
+          <li>отображение списка ваших товаров и их сроков годности;</li>
+          <li>расчёт сроков годности во встроенном калькуляторе;</li>
+          <li>формирование локальных уведомлений о приближающемся или истёкшем сроке годности;</li>
+          <li>автоматическое распознавание дат на этикетках с помощью компьютерного зрения и Apple Intelligence;</li>
+          <li>съёмка и прикрепление фотографий товаров по вашему выбору;</li>
+          <li>синхронизация данных между вашими устройствами через iCloud — если вы её включили;</li>
+          <li>отображение ближайших сроков годности в виджете на главном экране;</li>
+          <li>защита доступа к Приложению с помощью пароля и/или биометрии.</li>
+        </ul>
+        <div class="highlight-block">Мы <strong>не используем</strong> ваши данные для рекламы, профилирования, продажи или передачи третьим лицам.</div>
+      </div>
+      <div data-lang="en">
+        <p>All data processed by the App is used exclusively for the following purposes:</p>
+        <ul>
+          <li>displaying your product list and expiration dates;</li>
+          <li>calculating expiration dates in the built-in calculator;</li>
+          <li>generating local notifications about approaching or passed expiration dates;</li>
+          <li>automatically recognizing dates on labels via computer vision and Apple Intelligence;</li>
+          <li>capturing and attaching product photographs at your choice;</li>
+          <li>synchronizing data across your devices via iCloud — if you have enabled it;</li>
+          <li>displaying upcoming expiration dates in the home-screen widget;</li>
+          <li>protecting access to the App with a passcode and/or biometrics.</li>
+        </ul>
+        <div class="highlight-block">We <strong>do not use</strong> your data for advertising, profiling, sale, or transfer to third parties.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 data-lang="ru">Хранение данных и iCloud</h2>
+      <h2 data-lang="en">Data Storage and iCloud</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <h3>Локальное хранение</h3>
+        <p>Все данные о товарах, включая фотографии, хранятся локально на вашем устройстве.</p>
+        <h3>Синхронизация через iCloud</h3>
+        <p>При вашем согласии Приложение синхронизирует данные между вашими устройствами через <strong>Apple iCloud</strong>. Доступ к этим данным имеете только вы — посредством вашего Apple ID. Разработчик не имеет доступа к содержимому вашего iCloud.</p>
+        <p>Обработка данных в iCloud регулируется политикой конфиденциальности Apple: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>.</p>
+        <h3>Удаление данных</h3>
+        <ul>
+          <li>Удалить все локальные данные: «Настройки → Удалить все данные» внутри Приложения.</li>
+          <li>Удаление Приложения с устройства автоматически удаляет все локальные данные.</li>
+          <li>Данные в iCloud можно удалить через системные настройки iCloud вашего устройства.</li>
+        </ul>
+      </div>
+      <div data-lang="en">
+        <h3>Local storage</h3>
+        <p>All product data, including photographs, is stored locally on your device.</p>
+        <h3>iCloud synchronization</h3>
+        <p>With your consent, the App synchronizes data across your devices via <strong>Apple iCloud</strong>. Only you have access to this data, through your Apple ID. The Developer has no access to the contents of your iCloud.</p>
+        <p>Data processing within iCloud is governed by Apple's privacy policy: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>.</p>
+        <h3>Data deletion</h3>
+        <ul>
+          <li>Delete all local data: "Settings → Delete all data" within the App.</li>
+          <li>Uninstalling the App automatically deletes all local data.</li>
+          <li>iCloud data can be deleted via your device's system iCloud settings.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 data-lang="ru">Доступ к камере, фотографиям и уведомлениям</h2>
+      <h2 data-lang="en">Permissions</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Все разрешения опциональны — вы можете отказать в любом из них и продолжить использовать Приложение в ограниченном режиме.</p>
+        <div class="permission-cards">
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">📷</span><span class="permission-name">Камера</span></div>
+            <div class="permission-card-body">
+              <p><strong>Назначение:</strong> (а) распознавание текста (OCR) на упаковке для автоматического определения дат; (б) съёмка фото товара для прикрепления к карточке.</p>
+              <p><strong>Сохранение:</strong> видеопоток не записывается и не передаётся. Снятое фото сохраняется локально только если вы его прикрепили.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🖼️</span><span class="permission-name">Библиотека фотографий</span></div>
+            <div class="permission-card-body">
+              <p><strong>Назначение:</strong> (а) выбор фото из галереи для прикрепления к карточке товара; (б) распознавание дат на ранее сохранённых фотографиях.</p>
+              <p><strong>Сохранение:</strong> прикреплённое фото сохраняется только локально на вашем устройстве.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔔</span><span class="permission-name">Уведомления</span></div>
+            <div class="permission-card-body">
+              <p><span class="pill">Только локальные</span> Серверный push-сервис не используется — у Приложения нет бэкенда.</p>
+              <p><strong>Назначение:</strong> информирование о приближающемся или истёкшем сроке годности.</p>
+              <p><strong>Содержимое:</strong> название товара, дата истечения, при необходимости — миниатюра фото.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔐</span><span class="permission-name">Face ID / Touch ID</span></div>
+            <div class="permission-card-body">
+              <p><strong>Назначение:</strong> разблокировка Приложения вместо ввода пароля.</p>
+              <p><strong>Сохранение:</strong> биометрические данные никогда не покидают защищённый <strong>Secure Enclave</strong> устройства. Приложение не имеет доступа к биометрическим шаблонам.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🧠</span><span class="permission-name">Apple Intelligence</span></div>
+            <div class="permission-card-body">
+              <p>На устройствах с iOS 18.1+ текст с этикетки может обрабатываться <strong>локальной языковой моделью Apple</strong> для улучшения распознавания дат.</p>
+              <p><span class="pill">На устройстве</span> Никакие данные не передаются на серверы Apple, Разработчика или третьих лиц. Функция доступна только при активированном Apple Intelligence.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔍</span><span class="permission-name">Spotlight и Siri</span></div>
+            <div class="permission-card-body">
+              <p>Названия товаров и сроки годности индексируются в системном поиске <strong>Spotlight</strong> — локально, данные не покидают устройство. Приложение поддерживает интеграцию с Siri и приложением «Команды».</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">📱</span><span class="permission-name">Виджет</span></div>
+            <div class="permission-card-body">
+              <p>Виджет отображает ближайшие сроки годности на главном экране. Работает с теми же локальными данными и не выполняет сетевых запросов.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-lang="en">
+        <p>All permissions are optional — you may deny any of them and continue to use the App with reduced functionality.</p>
+        <div class="permission-cards">
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">📷</span><span class="permission-name">Camera</span></div>
+            <div class="permission-card-body">
+              <p><strong>Purpose:</strong> (a) text recognition (OCR) on packaging to automatically detect dates; (b) capturing a product photo to attach to a product card.</p>
+              <p><strong>Data retention:</strong> the video feed is not recorded or transmitted. A captured photo is saved locally only if you attach it.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🖼️</span><span class="permission-name">Photo Library</span></div>
+            <div class="permission-card-body">
+              <p><strong>Purpose:</strong> (a) selecting a photo from your gallery to attach to a product card; (b) recognizing dates in previously saved photos.</p>
+              <p><strong>Data retention:</strong> an attached photo is saved only locally on your device.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔔</span><span class="permission-name">Notifications</span></div>
+            <div class="permission-card-body">
+              <p><span class="pill">Local only</span> No server-side push service is used — the App has no backend.</p>
+              <p><strong>Purpose:</strong> notifying you about approaching or passed expiration dates.</p>
+              <p><strong>Content:</strong> product name, expiration date, and optionally a photo thumbnail.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔐</span><span class="permission-name">Face ID / Touch ID</span></div>
+            <div class="permission-card-body">
+              <p><strong>Purpose:</strong> unlocking the App instead of entering a passcode.</p>
+              <p><strong>Data retention:</strong> biometric data never leaves the device's <strong>Secure Enclave</strong>. The App has no access to biometric templates.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🧠</span><span class="permission-name">Apple Intelligence</span></div>
+            <div class="permission-card-body">
+              <p>On devices with iOS 18.1+, label text may be processed by Apple's <strong>on-device language model</strong> for improved date recognition.</p>
+              <p><span class="pill">On-device</span> No data is sent to Apple's servers, the Developer, or any third party. Available only when Apple Intelligence is enabled.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">🔍</span><span class="permission-name">Spotlight &amp; Siri</span></div>
+            <div class="permission-card-body">
+              <p>Product names and expiration dates are indexed in <strong>Spotlight</strong> search — locally, data does not leave the device. The App supports integration with Siri and the Shortcuts app.</p>
+            </div>
+          </div>
+          <div class="permission-card">
+            <div class="permission-card-head"><span class="permission-icon">📱</span><span class="permission-name">Widget</span></div>
+            <div class="permission-card-body">
+              <p>The widget displays upcoming expiration dates on the home screen. It uses the same local data and performs no network requests.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 data-lang="ru">Безопасность</h2>
+      <h2 data-lang="en">Security</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <div class="security-list">
+          <div class="security-item"><span class="security-icon">🔑</span><div class="security-text"><strong>Keychain</strong>Пароль приложения хранится только в защищённом системном хранилище Apple.</div></div>
+          <div class="security-item"><span class="security-icon">👁️</span><div class="security-text"><strong>Биометрия</strong>Face ID или Touch ID — опционально, в дополнение к паролю.</div></div>
+          <div class="security-item"><span class="security-icon">⏱️</span><div class="security-text"><strong>Автоблокировка</strong>Приложение блокируется автоматически по таймауту бездействия.</div></div>
+          <div class="security-item"><span class="security-icon">🫥</span><div class="security-text"><strong>Скрытие в App Switcher</strong>При сворачивании экран размывается, чтобы ваши данные не попали в системные снимки экрана.</div></div>
+          <div class="security-item"><span class="security-icon">🚫</span><div class="security-text"><strong>Нет сетевой передачи</strong>Единственный внешний канал — ваш личный iCloud.</div></div>
+        </div>
+        <p style="margin-top:18px;">Несмотря на принимаемые меры, ни одна система не может гарантировать абсолютную безопасность. Используя Приложение, вы понимаете и принимаете эти ограничения.</p>
+      </div>
+      <div data-lang="en">
+        <div class="security-list">
+          <div class="security-item"><span class="security-icon">🔑</span><div class="security-text"><strong>Keychain</strong>The App passcode is stored only in Apple's secure system storage.</div></div>
+          <div class="security-item"><span class="security-icon">👁️</span><div class="security-text"><strong>Biometrics</strong>Face ID or Touch ID — optional, in addition to the passcode.</div></div>
+          <div class="security-item"><span class="security-icon">⏱️</span><div class="security-text"><strong>Auto-lock</strong>The App locks automatically after an inactivity timeout.</div></div>
+          <div class="security-item"><span class="security-icon">🫥</span><div class="security-text"><strong>App Switcher masking</strong>When backgrounded, the screen is blurred to prevent your data from appearing in system snapshots.</div></div>
+          <div class="security-item"><span class="security-icon">🚫</span><div class="security-text"><strong>No network transmission</strong>The only external channel is your personal iCloud.</div></div>
+        </div>
+        <p style="margin-top:18px;">Despite these measures, no system can guarantee absolute security. By using the App, you understand and accept these limitations.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 data-lang="ru">Передача данных третьим лицам</h2>
+      <h2 data-lang="en">Data Sharing with Third Parties</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <div class="no-tracking-grid">
+          <div class="no-tracking-item">Нет рекламы</div>
+          <div class="no-tracking-item">Нет сторонних SDK</div>
+          <div class="no-tracking-item">Нет трекеров</div>
+          <div class="no-tracking-item">Данные не продаются</div>
+        </div>
+        <p>Приложение не содержит рекламы, не использует сторонние SDK для аналитики или трекинга, не передаёт и не продаёт ваши данные.</p>
+        <p>Единственный внешний канал — синхронизация через <strong>Apple iCloud</strong>, происходящая в рамках вашего личного Apple ID и регулируемая политикой Apple.</p>
+      </div>
+      <div data-lang="en">
+        <div class="no-tracking-grid">
+          <div class="no-tracking-item">No advertising</div>
+          <div class="no-tracking-item">No third-party SDKs</div>
+          <div class="no-tracking-item">No trackers</div>
+          <div class="no-tracking-item">Data is not sold</div>
+        </div>
+        <p>The App contains no advertising, uses no third-party SDKs for analytics or tracking, and does not transmit or sell your data.</p>
+        <p>The only external channel is synchronization via <strong>Apple iCloud</strong>, which takes place within your personal Apple ID and is governed by Apple's privacy policy.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 data-lang="ru">Данные детей</h2>
+      <h2 data-lang="en">Children's Data</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Приложение предназначено для пользователей любого возраста и не направлено на сбор данных детей. Разработчик намеренно не собирает персональные данные у пользователей, не достигших установленного законом возраста, в том числе у детей младше 13 лет (или иного применимого возраста в вашей юрисдикции).</p>
+        <p>Поскольку Приложение не собирает персональные данные и работает локально на устройстве, оно соответствует принципам законодательства о защите детей в интернете (включая COPPA).</p>
+      </div>
+      <div data-lang="en">
+        <p>The App is intended for users of all ages and is not directed at collecting children's data. The Developer does not knowingly collect personal data from users below the legally applicable age, including children under 13 (or another applicable age in your jurisdiction).</p>
+        <p>Because the App does not collect personal data and operates locally on the device, it complies with the principles of legislation protecting children online (including COPPA).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 data-lang="ru">Изменения политики</h2>
+      <h2 data-lang="en">Changes to This Policy</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>Настоящая Политика может периодически обновляться. Актуальная версия всегда доступна в Приложении и на странице Приложения в App Store. О существенных изменениях пользователи будут уведомлены через обновление Приложения.</p>
+        <p>Дата последней редакции указана в начале Политики. Продолжая использовать Приложение после публикации обновлённой Политики, вы выражаете согласие с её новой редакцией.</p>
+      </div>
+      <div data-lang="en">
+        <p>This Policy may be updated from time to time. The current version is always available within the App and on the App's page in the App Store. Users will be notified of material changes via an App update.</p>
+        <p>The date of the most recent revision is shown at the top of this Policy. By continuing to use the App after the updated Policy is published, you express your agreement with its new version.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="policy-section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 data-lang="ru">Контактная информация</h2>
+      <h2 data-lang="en">Contact Information</h2>
+    </div>
+    <div class="section-body">
+      <div data-lang="ru">
+        <p>По любым вопросам, связанным с настоящей Политикой или обработкой ваших данных, вы можете обратиться к Разработчику:</p>
+        <div class="contact-block">
+          <div class="contact-row"><span class="contact-label">Разработчик</span><span class="contact-value">Aleksey Petrov</span></div>
+          <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></span></div>
+          <div class="contact-row"><span class="contact-label">Приложение</span><span class="contact-value">ПРОсрок / PROexpiry</span></div>
+        </div>
+      </div>
+      <div data-lang="en">
+        <p>For any questions related to this Policy or to the processing of your data, you may contact the Developer:</p>
+        <div class="contact-block">
+          <div class="contact-row"><span class="contact-label">Developer</span><span class="contact-value">Aleksey Petrov</span></div>
+          <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></span></div>
+          <div class="contact-row"><span class="contact-label">App</span><span class="contact-value">PROexpiry / ПРОсрок</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p data-lang="ru">© 2026 Aleksey Petrov &nbsp;·&nbsp; ПРОсрок / PROexpiry &nbsp;·&nbsp; <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></p>
+  <p data-lang="en">© 2026 Aleksey Petrov &nbsp;·&nbsp; PROexpiry / ПРОсрок &nbsp;·&nbsp; <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    localStorage.setItem('pp-lang', lang);
+  }
+  const themes = ['auto','light','dark'];
+  function cycleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'auto';
+    const next = themes[(themes.indexOf(cur) + 1) % themes.length];
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('pp-theme', next);
+  }
+  (function() {
+    const t = localStorage.getItem('pp-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+    const l = localStorage.getItem('pp-lang');
+    if (l) setLang(l);
+  })();
+</script>
+</body>
+</html>
