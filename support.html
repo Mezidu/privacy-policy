@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поддержка — ПРОсрок / PROexpiry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sans:'DM Sans',sans-serif;--serif:'Literata',Georgia,serif;
+  --bg:#f7f5f0;--surface:#ffffff;--border:#e4e0d8;--text:#1a1814;
+  --muted:#7a7468;--accent:#2d6a4f;--accent-soft:#e8f2ec;--accent-text:#1e4d38;
+  --tag-bg:#f0ede6;--shadow:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.10);--radius:14px;--radius-sm:8px;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131210;--surface:#1d1b18;--border:#2e2b26;--text:#ede9e0;
+    --muted:#8a8278;--accent:#52b788;--accent-soft:#1a2e24;--accent-text:#74c9a0;
+    --tag-bg:#252320;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
+    --shadow-lg:0 8px 32px rgba(0,0,0,.4);
+  }
+}
+[data-theme="dark"]{--bg:#131210;--surface:#1d1b18;--border:#2e2b26;--text:#ede9e0;--muted:#8a8278;--accent:#52b788;--accent-soft:#1a2e24;--accent-text:#74c9a0;--tag-bg:#252320;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);--shadow-lg:0 8px 32px rgba(0,0,0,.4);}
+[data-theme="light"]{--bg:#f7f5f0;--surface:#ffffff;--border:#e4e0d8;--text:#1a1814;--muted:#7a7468;--accent:#2d6a4f;--accent-soft:#e8f2ec;--accent-text:#1e4d38;--tag-bg:#f0ede6;--shadow:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);--shadow-lg:0 8px 32px rgba(0,0,0,.10);}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;min-height:100vh;}
+
+.site-header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.header-inner{max-width:800px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.app-name{font-family:var(--serif);font-weight:500;font-size:17px;color:var(--text);white-space:nowrap;letter-spacing:-.01em;flex-shrink:0;}
+.app-name span{color:var(--accent);}
+.controls{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.lang-switch{display:flex;background:var(--tag-bg);border:1px solid var(--border);border-radius:999px;padding:3px;gap:2px;}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;padding:4px 13px;border-radius:999px;color:var(--muted);transition:all .2s;letter-spacing:.02em;line-height:1;}
+.lang-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.theme-btn{background:var(--tag-bg);border:1px solid var(--border);border-radius:999px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{color:var(--text);border-color:var(--accent);}
+.theme-btn svg{width:16px;height:16px;}
+.icon-sun,.icon-moon{display:none;}
+[data-theme="light"] .icon-sun,[data-theme="auto"] .icon-sun{display:block;}
+[data-theme="dark"] .icon-moon{display:block;}
+@media(prefers-color-scheme:dark){[data-theme="auto"] .icon-sun{display:none;}[data-theme="auto"] .icon-moon{display:block;}}
+
+main{max-width:800px;margin:0 auto;padding:48px 24px 96px;}
+
+.hero{margin-bottom:48px;padding-bottom:40px;border-bottom:1px solid var(--border);}
+.hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.hero h1{font-family:var(--serif);font-size:clamp(26px,5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.02em;color:var(--text);margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.6;max-width:560px;}
+
+.card{margin-bottom:32px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s;animation:fadeUp .4s ease both;}
+.card:hover{box-shadow:var(--shadow-lg);}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.10s}.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.20s}
+.card-header{display:flex;align-items:center;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border);background:var(--tag-bg);}
+.card-icon{font-size:20px;line-height:1;flex-shrink:0;}
+.card-header h2{font-family:var(--serif);font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--text);line-height:1.3;}
+.card-body{padding:24px;}
+.card-body p{font-size:15px;color:var(--text);line-height:1.75;margin-bottom:16px;}
+.card-body p:last-child{margin-bottom:0;}
+
+.faq-list{display:grid;gap:10px;}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;text-align:left;font-family:var(--sans);font-size:15px;font-weight:500;color:var(--text);transition:background .15s;}
+.faq-q:hover{background:var(--tag-bg);}
+.faq-q[aria-expanded="true"]{background:var(--tag-bg);}
+.faq-chevron{flex-shrink:0;width:18px;height:18px;color:var(--muted);transition:transform .25s;}
+.faq-q[aria-expanded="true"] .faq-chevron{transform:rotate(180deg);}
+.faq-a{display:none;padding:14px 18px 16px;font-size:14px;color:var(--text);line-height:1.7;border-top:1px solid var(--border);}
+.faq-a.open{display:block;}
+.faq-a ol{padding-left:18px;margin-top:8px;}
+.faq-a ol li{margin-bottom:6px;}
+.faq-a p{margin-bottom:8px;}
+.faq-a p:last-child{margin-bottom:0;}
+
+.contact-highlight{background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px;}
+.contact-highlight-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.contact-highlight-text{font-size:15px;color:var(--accent-text);line-height:1.6;}
+.contact-highlight-text strong{display:block;margin-bottom:4px;font-size:16px;}
+.contact-highlight-text a{color:var(--accent);text-decoration:none;font-weight:600;}
+.contact-highlight-text a:hover{text-decoration:underline;}
+.response-badge{display:inline-flex;align-items:center;gap:6px;background:var(--tag-bg);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:16px;}
+.response-badge::before{content:'⏱';font-size:14px;}
+.contact-note{font-size:14px;color:var(--muted);line-height:1.65;}
+
+.privacy-link-block{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--tag-bg);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;transition:border-color .2s,box-shadow .2s;margin-top:16px;}
+.privacy-link-block:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.privacy-link-icon{font-size:20px;flex-shrink:0;}
+.privacy-link-text{font-size:14px;color:var(--text);}
+.privacy-link-text strong{display:block;margin-bottom:2px;}
+.privacy-link-text span{color:var(--muted);font-size:13px;}
+.privacy-link-arrow{margin-left:auto;color:var(--muted);font-size:20px;flex-shrink:0;}
+
+[data-lang="en"]{display:none;}
+html[lang="en"] [data-lang="ru"]{display:none;}
+html[lang="en"] [data-lang="en"]{display:block;}
+html[lang="en"] .faq-list[data-lang="en"]{display:grid;}
+
+footer{max-width:800px;margin:0 auto;padding:0 24px 48px;text-align:center;font-size:13px;color:var(--muted);line-height:1.6;}
+footer a{color:var(--muted);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+@media(max-width:600px){
+  main{padding:28px 16px 72px;}footer{padding:0 16px 40px;}
+  .header-inner{padding:0 16px;}.card-body{padding:18px 16px;}.card-header{padding:14px 16px;}
+  .app-name{font-size:14px;}.contact-highlight{flex-direction:column;gap:8px;}
+}
+@media(max-width:380px){.lang-btn{padding:4px 10px;font-size:12px;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="app-name">ПРОсрок&nbsp;<span>/</span>&nbsp;PROexpiry</span>
+    <div class="controls">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+        <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+      </div>
+      <button class="theme-btn" onclick="cycleTheme()" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div data-lang="ru">
+      <p class="hero-eyebrow">Поддержка</p>
+      <h1>Помощь по приложению <em>ПРОсрок</em></h1>
+      <p class="hero-sub">Ответы на частые вопросы и контакт для связи с разработчиком. Мы отвечаем в течение 48 часов.</p>
+    </div>
+    <div data-lang="en">
+      <p class="hero-eyebrow">Support</p>
+      <h1>Help for <em>PROexpiry</em></h1>
+      <p class="hero-sub">Answers to common questions and a way to reach the developer. We respond within 48 hours.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💬</span>
+      <h2 data-lang="ru">Частые вопросы</h2>
+      <h2 data-lang="en">Frequently Asked Questions</h2>
+    </div>
+    <div class="card-body">
+
+      <div class="faq-list" data-lang="ru">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Как добавить товар?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>Есть три способа добавить товар:</p>
+            <ol>
+              <li><strong>Вручную</strong> — нажмите «+» на главном экране, заполните название, дату производства и срок годности.</li>
+              <li><strong>Сканирование этикетки</strong> — нажмите иконку камеры и наведите её на дату на упаковке. Приложение распознает дату автоматически.</li>
+              <li><strong>Калькулятор</strong> — введите дату производства и срок хранения в днях, приложение рассчитает дату истечения. Нажмите «Сохранить», чтобы добавить в список.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Как настроить уведомления?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>Перейдите в <strong>Настройки</strong> (иконка шестерёнки) → <strong>Уведомления</strong>. Там можно:</p>
+            <ol>
+              <li>Включить или отключить уведомления глобально.</li>
+              <li>Выбрать, за сколько дней до истечения срока получать предупреждение.</li>
+              <li>Настроить время, в которое приходят уведомления.</li>
+            </ol>
+            <p>Если уведомления не приходят — проверьте разрешения в настройках iOS: <strong>Настройки → ПРОсрок → Уведомления</strong>.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Ошибка при сканировании этикетки
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>Если дата не распозналась, попробуйте следующее:</p>
+            <ol>
+              <li>Убедитесь, что этикетка хорошо освещена и не размыта.</li>
+              <li>Наведите камеру точнее — только на строку с датой.</li>
+              <li>Нажмите <strong>«Не распозналось?»</strong> — приложение попробует использовать Apple Intelligence (требуется iOS 18.1+).</li>
+              <li>Если ничего не помогло — добавьте товар вручную или через калькулятор.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Проблема с iCloud-синхронизацией
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>Если данные не синхронизируются между устройствами:</p>
+            <ol>
+              <li>Убедитесь, что на обоих устройствах выполнен вход с одним Apple ID.</li>
+              <li>Проверьте, что iCloud включён для Приложения: <strong>Настройки iOS → [Apple ID] → iCloud → ПРОсрок</strong>.</li>
+              <li>Проверьте подключение к интернету.</li>
+              <li>Подождите несколько минут — iCloud иногда синхронизируется с задержкой.</li>
+            </ol>
+            <p>Если проблема остаётся — напишите нам, указав модели устройств и версию iOS.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Как удалить данные?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <ol>
+              <li><strong>Удалить один товар</strong> — смахните карточку влево на главном экране.</li>
+              <li><strong>Удалить все данные</strong> — <strong>Настройки → Удалить все данные</strong>. Действие необратимо.</li>
+              <li><strong>Удалить данные из iCloud</strong> — <strong>Настройки iOS → [Apple ID] → iCloud → Управление хранилищем → ПРОсрок</strong>.</li>
+              <li><strong>Удалить приложение</strong> — все локальные данные удаляются автоматически.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-list" data-lang="en">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            How do I add a product?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>There are three ways to add a product:</p>
+            <ol>
+              <li><strong>Manually</strong> — tap "+" on the main screen and fill in the name, production date, and expiration date.</li>
+              <li><strong>Label scan</strong> — tap the camera icon and point it at the date on the packaging. The App will recognize it automatically.</li>
+              <li><strong>Calculator</strong> — enter the production date and shelf life in days; the App calculates the expiration date. Tap "Save" to add it to your list.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            How do I set up notifications?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>Go to <strong>Settings</strong> (gear icon) → <strong>Notifications</strong>. There you can:</p>
+            <ol>
+              <li>Enable or disable notifications globally.</li>
+              <li>Choose how many days before expiration you want to be notified.</li>
+              <li>Set the time of day for notifications.</li>
+            </ol>
+            <p>If notifications are not arriving, check permissions in iOS Settings: <strong>Settings → PROexpiry → Notifications</strong>.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            Label scanning error
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>If the date is not recognized, try the following:</p>
+            <ol>
+              <li>Make sure the label is well-lit and in focus.</li>
+              <li>Aim the camera more precisely — just at the date line.</li>
+              <li>Tap <strong>"Didn't recognize?"</strong> — the App will try Apple Intelligence (requires iOS 18.1+).</li>
+              <li>If nothing works, add the product manually or use the calculator.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            iCloud sync issue
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <p>If data is not syncing between your devices:</p>
+            <ol>
+              <li>Make sure both devices are signed in with the same Apple ID.</li>
+              <li>Check that iCloud is enabled for the App: <strong>iOS Settings → [Apple ID] → iCloud → PROexpiry</strong>.</li>
+              <li>Check your internet connection.</li>
+              <li>Wait a few minutes — iCloud sync can sometimes be delayed.</li>
+            </ol>
+            <p>If the issue persists, contact us and include your device models and iOS version.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggle(this)">
+            How do I delete my data?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a">
+            <ol>
+              <li><strong>Delete one product</strong> — swipe the card left on the main screen.</li>
+              <li><strong>Delete all data</strong> — <strong>Settings → Delete all data</strong>. This action is irreversible.</li>
+              <li><strong>Delete iCloud data</strong> — <strong>iOS Settings → [Apple ID] → iCloud → Manage Storage → PROexpiry</strong>.</li>
+              <li><strong>Delete the App</strong> — all local data is removed automatically.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">✉️</span>
+      <h2 data-lang="ru">Написать разработчику</h2>
+      <h2 data-lang="en">Contact the Developer</h2>
+    </div>
+    <div class="card-body">
+      <div data-lang="ru">
+        <div class="contact-highlight">
+          <span class="contact-highlight-icon">👋</span>
+          <div class="contact-highlight-text">
+            <strong>Не нашли ответ на свой вопрос?</strong>
+            Напишите на <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a> — расскажите, что произошло, и мы поможем.
+          </div>
+        </div>
+        <div class="response-badge">Время ответа — в течение 48 часов</div>
+        <p class="contact-note">Чтобы мы могли помочь быстрее, укажите в письме модель iPhone, версию iOS и краткое описание проблемы. Если возможно — приложите скриншот.</p>
+      </div>
+      <div data-lang="en">
+        <div class="contact-highlight">
+          <span class="contact-highlight-icon">👋</span>
+          <div class="contact-highlight-text">
+            <strong>Didn't find the answer you needed?</strong>
+            Write to <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a> — tell us what happened and we'll help.
+          </div>
+        </div>
+        <div class="response-badge">Response time — within 48 hours</div>
+        <p class="contact-note">To help us resolve your issue faster, please include your iPhone model, iOS version, and a brief description of the problem. A screenshot is always welcome.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔒</span>
+      <h2 data-lang="ru">Конфиденциальность</h2>
+      <h2 data-lang="en">Privacy</h2>
+    </div>
+    <div class="card-body">
+      <div data-lang="ru">
+        <p>Приложение не собирает персональные данные, не содержит рекламы и не передаёт ваши данные третьим лицам. Все данные хранятся локально на вашем устройстве.</p>
+      </div>
+      <div data-lang="en">
+        <p>The App does not collect personal data, contains no advertising, and does not share your data with third parties. All data is stored locally on your device.</p>
+      </div>
+      <a href="./index.html" class="privacy-link-block">
+        <span class="privacy-link-icon">📄</span>
+        <div class="privacy-link-text">
+          <strong data-lang="ru">Политика конфиденциальности</strong>
+          <strong data-lang="en">Privacy Policy</strong>
+          <span data-lang="ru">Полный текст политики</span>
+          <span data-lang="en">Full privacy policy text</span>
+        </div>
+        <span class="privacy-link-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p data-lang="ru">© 2026 Aleksey Petrov &nbsp;·&nbsp; ПРОсрок / PROexpiry &nbsp;·&nbsp; <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></p>
+  <p data-lang="en">© 2026 Aleksey Petrov &nbsp;·&nbsp; PROexpiry / ПРОсрок &nbsp;·&nbsp; <a href="mailto:alyrpetrov@gmail.com">alyrpetrov@gmail.com</a></p>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.closest('.faq-list').querySelectorAll('.faq-q').forEach(b => {
+      b.setAttribute('aria-expanded','false');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!expanded) {
+      btn.setAttribute('aria-expanded','true');
+      btn.nextElementSibling.classList.add('open');
+    }
+  }
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    localStorage.setItem('pp-lang', lang);
+  }
+  const themes = ['auto','light','dark'];
+  function cycleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'auto';
+    const next = themes[(themes.indexOf(cur) + 1) % themes.length];
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('pp-theme', next);
+  }
+  (function() {
+    const t = localStorage.getItem('pp-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+    const l = localStorage.getItem('pp-lang');
+    if (l) setLang(l);
+  })();
+</script>
+</body>
+</html>
